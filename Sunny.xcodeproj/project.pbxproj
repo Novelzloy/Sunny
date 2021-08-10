@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3008A7D926C2187C0033B546 /* CurrentWether.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008A7D826C2187C0033B546 /* CurrentWether.swift */; };
 		300F8A1B26C01A5300FCBDE5 /* CurrentWetherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F8A1A26C01A5300FCBDE5 /* CurrentWetherData.swift */; };
 		352AD2612403FA5700FE672A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352AD2602403FA5700FE672A /* AppDelegate.swift */; };
 		352AD2632403FA5700FE672A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352AD2622403FA5700FE672A /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3008A7D826C2187C0033B546 /* CurrentWether.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWether.swift; sourceTree = "<group>"; };
 		300F8A1A26C01A5300FCBDE5 /* CurrentWetherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWetherData.swift; sourceTree = "<group>"; };
 		352AD25D2403FA5700FE672A /* Sunny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		352AD2602403FA5700FE672A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				353272CD240924DA000686B3 /* NetworkWeatherManager.swift */,
 				300F8A1A26C01A5300FCBDE5 /* CurrentWetherData.swift */,
+				3008A7D826C2187C0033B546 /* CurrentWether.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3008A7D926C2187C0033B546 /* CurrentWether.swift in Sources */,
 				352AD2652403FA5700FE672A /* ViewController.swift in Sources */,
 				300F8A1B26C01A5300FCBDE5 /* CurrentWetherData.swift in Sources */,
 				352AD27B2404DD6600FE672A /* ViewController+alertController.swift in Sources */,
