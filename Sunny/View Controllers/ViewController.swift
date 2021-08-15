@@ -25,11 +25,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkWeatherManager.onClouser = { CurrentWether in
-            print(CurrentWether.cityName)
-        }
+        networkWeatherManager.delegate = self
         networkWeatherManager.featchCurrentWetherManager(forCity: "Moscow")
     }
 }
 
+extension ViewController: NetworkManagerDelegate{
+    func updateInterfase(_: NetworkWeatherManager, with currentWether: CurrentWether) {
+        print(currentWether.cityName)
+    }
+    
+    
+}
 

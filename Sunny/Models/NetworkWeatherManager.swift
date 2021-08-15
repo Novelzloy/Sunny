@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct NetworkWeatherManager {
+protocol NetworkManagerDelegate: AnyObject {
+    func updateInterfase(_ :NetworkWeatherManager ,with currentWether: CurrentWether)
+}
+
+class NetworkWeatherManager {
     
-    var onClouser:((CurrentWether) -> Void)?
+    weak var delegate: NetworkManagerDelegate?
     
     func featchCurrentWetherManager(forCity city: String){
         let urlSrting = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)"
@@ -19,7 +23,7 @@ struct NetworkWeatherManager {
             let task = sesion.dataTask(with: url) { data, reponce, error in
                 if let data = data{
                     if let curentWether = self.parseJSON(withData: data){       
-                        self.onClouser?(curentWether)
+                        self.delegate?.updateInterfase(self, with: curentWether)
                     }
                 }
             }
