@@ -1,15 +1,14 @@
 //
-//  CurrentWetherData.swift
+//  CurrentWeatherData.swift
 //  Sunny
 //
-//  Created by Роман on 08.08.2021.
-//  Copyright © 2021 Ivan Akulov. All rights reserved.
+//  Created by Ivan Akulov on 05/03/2020.
+//  Copyright © 2020 Ivan Akulov. All rights reserved.
 //
 
 import Foundation
 
-
-struct CurrentWetherData: Codable {
+struct CurrentWeatherData: Codable {
     let name: String
     let main: Main
     let weather: [Weather]
@@ -19,7 +18,7 @@ struct Main: Codable {
     let temp: Double
     let feelsLike: Double
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
     }
@@ -27,5 +26,4 @@ struct Main: Codable {
 
 struct Weather: Codable {
     let id: Int
-    let main: String
 }

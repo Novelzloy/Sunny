@@ -7,39 +7,53 @@
 //
 
 import Foundation
-
-protocol NetworkManagerDelegate: AnyObject {
-    func updateInterfase(_ :NetworkWeatherManager ,with currentWether: CurrentWether)
-}
+import CoreLocation
 
 class NetworkWeatherManager {
     
-    weak var delegate: NetworkManagerDelegate?
-    
-    func featchCurrentWetherManager(forCity city: String){
-        let urlSrting = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)"
-        guard let url = URL(string: urlSrting) else {return}
-            let sesion = URLSession(configuration: .default)
-            let task = sesion.dataTask(with: url) { data, reponce, error in
-                if let data = data{
-                    if let curentWether = self.parseJSON(withData: data){       
-                        self.delegate?.updateInterfase(self, with: curentWether)
-                    }
-                }
-            }
-            task.resume()
+    enum RequestType {
+        case cityName(city: String)
+        case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
     }
     
-    func parseJSON(withData data: Data) -> CurrentWether? {
+    var onCompletion: ((CurrentWeather) -> Void)?
+    
+    func fetchCurrentWeather(forRequestType requestType: RequestType) {
+        var urlString = ""
+        switch requestType {
+        case .cityName(let city):
+            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&apikey=\(apiKey)&units=metric"
+            
+        case .coordinate(let latitude, let longitude):
+            urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&apikey=\(apiKey)&units=metric"
+        }
+        performRequest(withURLString: urlString)
+    }
+    
+    fileprivate func performRequest(withURLString urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { data, response, error in
+            if let data = data {
+                if let currentWeather = self.parseJSON(withData: data) {
+                    self.onCompletion?(currentWeather)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    fileprivate func parseJSON(withData data: Data) -> CurrentWeather? {
         let decoder = JSONDecoder()
         do {
-            let currentWeatherData = try decoder.decode(CurrentWetherData.self, from: data)
-            guard let currentWhether = CurrentWether(currentWeatherData: currentWeatherData) else {return nil}
-            return currentWhether
+            let currentWeatherData = try decoder.decode(CurrentWeatherData.self, from: data)
+            guard let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else {
+                return nil
+            }
+            return currentWeather
         } catch let error as NSError {
             print(error.localizedDescription)
         }
         return nil
     }
 }
-
